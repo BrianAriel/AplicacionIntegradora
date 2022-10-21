@@ -1,12 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-
-interface Persona {
-  dni: Int8Array;
-  nya: string;
-  edad: Int8Array;
-  fechanac: string;
-}
+import { Component, OnInit} from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { HttpService } from './service/HttpService';
+import { Persona } from './Persona';
 
 @Component({
   selector: 'app-root',
@@ -14,15 +9,26 @@ interface Persona {
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit{
 
-  constructor(private http: HttpClient) {  }
-  
-  ngOnInit(): void {
-    this.http.get("http://localhost:8080/personas").subscribe(data => {
-      console.log(data);
-    })
+  persona: Persona[] = [];
+
+  public columnas = ['dni', 'nya', 'edad', 'fechanac'];
+  public dataSource = new MatTableDataSource<Persona>();
+
+  constructor(private httpService: HttpService){
+
   }
 
+  ngOnInit(): void {
+    this.getInfo();
+  }
+
+  getInfo() {
+    this.httpService.getPersonas()
+    .subscribe((res)=>{
+      this.dataSource.data = res;
+    })
+  }
   
 }
