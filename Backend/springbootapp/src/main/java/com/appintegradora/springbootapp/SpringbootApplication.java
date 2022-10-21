@@ -19,6 +19,7 @@ public class SpringbootApplication {
 	@Bean
 	public CommandLineRunner app(PersonaRepository repository){
 		return (args) -> {
+			log.info("");
 		};
 	}
 
