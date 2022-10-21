@@ -19,10 +19,6 @@ public class SpringbootApplication {
 	@Bean
 	public CommandLineRunner app(PersonaRepository repository){
 		return (args) -> {
-			repository.findById(41123456);
-			System.out.println("LLEGO");
-
-			log.info("");
 		};
 	}
 
